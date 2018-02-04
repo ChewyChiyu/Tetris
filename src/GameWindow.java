@@ -106,6 +106,7 @@ public class GameWindow extends JPanel{
 	}
 
 	void update(){
+		score += ( gameBoard.checkForRow() * 10 ); //check for a completed row, return positive score if hit
 		//shifting down gameBoard
 		if(!isPressingDown){
 			if(worldTick++ == 5){ // every half sec auto shift down
@@ -114,7 +115,6 @@ public class GameWindow extends JPanel{
 			     
 			}
 		}
-		score += ( gameBoard.checkForRow() * 10 ); //check for a completed row, return positive score if hit
 		repaint();
 	}
 

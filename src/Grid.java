@@ -239,10 +239,10 @@ public class Grid extends GameNode{
 				//filling grid piece
 				g.fillRect(xBuffer, yBuffer, SPACER, SPACER);
 
-				g.setColor(Color.black);
-				if(gameBoard[row][col] < 0){ // anchor piece
-					g.drawString("M", xBuffer + SPACER / 4, yBuffer + SPACER /2);
-				}
+//				g.setColor(Color.black);
+//				if(gameBoard[row][col] < 0){ // anchor piece
+//					g.drawString("M", xBuffer + SPACER / 4, yBuffer + SPACER /2);
+//				}
 
 
 
