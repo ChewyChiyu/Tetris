@@ -85,6 +85,18 @@ public class Grid extends GameNode{
 				}
 			}
 		}
+		//shifting down all rows
+		for(int completedRowCount = 0; completedRowCount < completedRows.length; completedRowCount++){
+			if(completedRows[completedRowCount]){ // move down one index for every row removed
+				for(int row = completedRowCount; row > 0; row--){
+					for(int col = 0; col < gameBoard[0].length; col++){
+						if(!currentPiece.isSelf(new Point(row,col))){ //moving everything but current piece
+							gameBoard[row][col] = gameBoard[row-1][col];
+						}
+					}
+				}
+			}
+		}
 		
 
 	}
