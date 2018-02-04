@@ -30,12 +30,14 @@ public class Grid extends GameNode{
 			Point test = new Point(-currentPiece.map[mapCount].y,currentPiece.map[mapCount].x);
 			int rowTest =  currentPiece.anchor.y  + ( test.y );
 			int colTest =  currentPiece.anchor.x  + ( test.x );
-			if(colTest < 0 || colTest > gameBoard[0].length || rowTest > gameBoard.length){ //testing bounds x and y
+			if(colTest < 0 || colTest > gameBoard[0].length-1 || rowTest > gameBoard.length-1){ //testing bounds x and y
+				updateBoard();
 				return;
 			}
 			if(gameBoard[rowTest][colTest] != 0){ //not empty space
 				System.out.println("test 1");
 				if(!currentPiece.isSelf(test)){
+					updateBoard();
 					return;
 				}
 			}
