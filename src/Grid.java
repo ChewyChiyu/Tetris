@@ -32,21 +32,18 @@ public class Grid extends GameNode{
 	void shiftRight(int index){
 		checkForCompletion(); //checking for completion
 		cleanPrev(); //cleaning previous move
-		boolean canShiftRight = true;
 		for(int mapCount = 0; mapCount < currentPiece.map.length; mapCount++){
 			int col =  currentPiece.anchor.x  + ( currentPiece.map[mapCount].x );
 			int row =  currentPiece.anchor.y  + ( currentPiece.map[mapCount].y );
 			if(col + index < 0 || col + index > gameBoard[0].length-1){ //out of bounds
-				canShiftRight = false;
+				return;
 			}
 			if(gameBoard[row][col + index] != 0){ //into another block
-				canShiftRight = false;
+				return;
 			}
 			
-		}
-		if(canShiftRight){
+		} //if it made it this far then move the block to index
 			currentPiece.anchor.x+=index;
-		}
 
 	}
 
@@ -62,7 +59,7 @@ public class Grid extends GameNode{
 				summonPiece();
 				return;
 			}
-			if((gameBoard[row+1][col] != 0 && Math.abs(gameBoard[row+1][col]) != Math.abs(currentPiece.type.id) )){
+			if((gameBoard[row+1][col] != 0 && !currentPiece.isSelf(new Point(row+1,col)))){
 				summonPiece();
 				return;
 			}
@@ -95,7 +92,6 @@ public class Grid extends GameNode{
 	void summonPiece(){
 		//spawning in new piece
 		currentPiece = makePiece();
-		System.out.println("summoning piece");
 	}
 
 	//making random game piece
