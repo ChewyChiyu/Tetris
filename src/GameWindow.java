@@ -106,7 +106,6 @@ public class GameWindow extends JPanel{
 	}
 
 	void update(){
-		score += ( gameBoard.checkForRow() * 10 ); //check for a completed row, return positive score if hit
 		//shifting down gameBoard
 		if(!isPressingDown){
 			if(worldTick++ == 5){ // every half sec auto shift down
@@ -143,7 +142,7 @@ public class GameWindow extends JPanel{
 
 	// This is where the score and timer and all that stuff is
 	void screenElements(){
-		gameBoard = new Grid(10,24,20,new Point((int)screenDim.getWidth() / 6 , (int)screenDim.getHeight() / 10));
+		gameBoard = new Grid(10,24,20,new Point((int)screenDim.getWidth() / 6 , (int)screenDim.getHeight() / 10), this);
 		nodes.add(gameBoard);
 		gameBoard.summonPiece();
 	}

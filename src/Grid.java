@@ -13,12 +13,14 @@ public class Grid extends GameNode{
 	final Point spawnPoint;
 	GamePiece currentPiece;
 
-
-	public Grid(int col, int row, int spacer, Point location){
+	GameWindow window;
+	
+	public Grid(int col, int row, int spacer, Point location, GameWindow window){
 		super(location);
 		gameBoard = new int[row + SPAWN_BUFFER][col];
 		SPACER = spacer;
 		spawnPoint = new Point(row / 5, 5);
+		this.window = window;
 	}
 
 
@@ -84,10 +86,12 @@ public class Grid extends GameNode{
 			int col =  currentPiece.anchor.x  + ( currentPiece.map[mapCount].x );
 			//next board slot is another block
 			if(row + 1 == gameBoard.length){ // there is another block already there
+				window.score += checkForRow() * 10; // checking for a completed row, removing and adding to score
 				summonPiece();
 				return;
 			}
 			if((gameBoard[row+1][col] != 0 && !currentPiece.isSelf(new Point(row+1,col)))){
+				window.score += checkForRow() * 10; // checking for a completed row, removing and adding to score
 				summonPiece();
 				return;
 			}
