@@ -1,4 +1,5 @@
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
@@ -27,6 +28,9 @@ public class GameWindow extends JPanel{
 
 	ArrayList<GameNode> nodes = new ArrayList<GameNode>();
 
+	int score;
+	
+	
 
 	public GameWindow(Dimension d){
 		screenDim = d;
@@ -105,20 +109,24 @@ public class GameWindow extends JPanel{
 		//shifting down gameBoard
 		if(!isPressingDown){
 			if(worldTick++ == 5){ // every half sec auto shift down
+				worldTick = 0; //reseting tick
 			    gameBoard.shiftDown();
-				gameBoard.checkForRow(); //check for a completed row
-				worldTick = 0;
+			     
 			}
 		}
+		score += ( gameBoard.checkForRow() * 10 ); //check for a completed row, return positive score if hit
 		repaint();
 	}
 
 	public void paintComponent(Graphics g){
 		super.paintComponent(g);
+		g.setFont(new Font("Aerial",Font.BOLD,20));
+		g.drawString("Score: " + score, screenDim.width / 4, screenDim.height / 20);
 		for(int nodeCount = 0; nodeCount < nodes.size(); nodeCount++){
 			GameNode node = nodes.get(nodeCount);
 			node.draw(g);
 		}
+		
 	}
 
 

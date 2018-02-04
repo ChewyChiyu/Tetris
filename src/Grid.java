@@ -35,7 +35,6 @@ public class Grid extends GameNode{
 				return;
 			}
 			if(gameBoard[rowTest][colTest] != 0){ //not empty space
-				System.out.println("test 1");
 				if(!currentPiece.isSelf(test)){
 					updateBoard();
 					return;
@@ -44,17 +43,16 @@ public class Grid extends GameNode{
 		}		
 
 		//if reaches this far . . . rotation is a go
-		
 		currentPiece.rotate();	
 		updateBoard();
 	}
 
 	//basic game logic, shifting the pieces down by one 
 	void shiftDown(){
-		checkForCompletion(); //checking for completion
 		cleanPrev(); //cleaning previous move
 		currentPiece.anchor.y++; //move currentPiece down
 		updateBoard();
+		checkForCompletion(); //checking for completion
 	}
 
 	void shiftRight(int index){
@@ -64,9 +62,11 @@ public class Grid extends GameNode{
 			int col =  currentPiece.anchor.x  + ( currentPiece.map[mapCount].x );
 			int row =  currentPiece.anchor.y  + ( currentPiece.map[mapCount].y );
 			if(col + index < 0 || col + index > gameBoard[0].length-1){ //out of bounds
+				updateBoard();
 				return;
 			}
 			if(gameBoard[row][col + index] != 0){ //into another block
+				updateBoard();
 				return;
 			}
 
@@ -97,8 +97,9 @@ public class Grid extends GameNode{
 	}
 
 	//check if there is a row made 
-	void checkForRow(){ //if the row is all != 0 then there is a row
+	int checkForRow(){ //if the row is all != 0 then there is a row
 		boolean[] completedRows = new boolean[gameBoard.length];
+		int scoreIndex = 0;
 		for(int row = 0; row < gameBoard.length; row++){
 			completedRows[row] = true;
 			for(int col = 0; col < gameBoard[0].length; col++){
@@ -116,6 +117,9 @@ public class Grid extends GameNode{
 		//shifting down all rows
 		for(int completedRowCount = 0; completedRowCount < completedRows.length; completedRowCount++){
 			if(completedRows[completedRowCount]){ // move down one index for every row removed
+				
+				scoreIndex++; //increasing the score index
+				
 				for(int row = completedRowCount; row > 0; row--){
 					for(int col = 0; col < gameBoard[0].length; col++){
 						if(!currentPiece.isSelf(new Point(row,col))){ //moving everything but current piece
@@ -125,8 +129,9 @@ public class Grid extends GameNode{
 				}
 			}
 		}
-
-
+		updateBoard(); //updating board
+		return scoreIndex; //returning score
+	
 	}
 
 	void summonPiece(){
@@ -160,7 +165,7 @@ public class Grid extends GameNode{
 			randPieceType = GamePieceType.T;
 			break;
 		}
-		return new GamePiece(randPieceType,new Point(spawnPoint));
+		return new GamePiece(GamePieceType.LINE,new Point(spawnPoint));
 
 	}
 
