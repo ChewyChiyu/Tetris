@@ -44,6 +44,7 @@ public class Grid extends GameNode{
 		//if reaches this far . . . rotation is a go
 		
 		currentPiece.rotate();	
+		updateBoard();
 	}
 
 	//basic game logic, shifting the pieces down by one 
@@ -51,6 +52,7 @@ public class Grid extends GameNode{
 		checkForCompletion(); //checking for completion
 		cleanPrev(); //cleaning previous move
 		currentPiece.anchor.y++; //move currentPiece down
+		updateBoard();
 	}
 
 	void shiftRight(int index){
@@ -68,7 +70,7 @@ public class Grid extends GameNode{
 
 		} //if it made it this far then move the block to index
 		currentPiece.anchor.x+=index;
-
+		updateBoard();
 	}
 
 	//checking if pieces or game is at completion
