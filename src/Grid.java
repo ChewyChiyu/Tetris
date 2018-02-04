@@ -25,27 +25,27 @@ public class Grid extends GameNode{
 	//check if can rotate, if can then do it
 	void rotate(){		
 		//Mock rotation for bounds test
-		
+		cleanPrev(); //clear previous first
 		for(int mapCount = 0; mapCount < currentPiece.map.length; mapCount++){
 			Point test = new Point(-currentPiece.map[mapCount].y,currentPiece.map[mapCount].x);
 			int rowTest =  currentPiece.anchor.y  + ( test.y );
 			int colTest =  currentPiece.anchor.x  + ( test.x );
 			if(colTest < 0 || colTest > gameBoard[0].length || rowTest > gameBoard.length){ //testing bounds x and y
-				System.out.println("rotation failed bounds");
 				return;
 			}
-			if(gameBoard[rowTest][colTest] != 0 && currentPiece.isSelf(test)){ //meaning there is a block in the way
-				System.out.println("rotation failed block");
-				return;
+			if(gameBoard[rowTest][colTest] != 0){ //not empty space
+				System.out.println("test 1");
+				if(!currentPiece.isSelf(test)){
+					return;
+				}
 			}
 		}		
-		System.out.println("rotation success");
-		
+
 		//if reaches this far . . . rotation is a go
-		cleanPrev(); //clear previous first
+		
 		currentPiece.rotate();	
 	}
-	
+
 	//basic game logic, shifting the pieces down by one 
 	void shiftDown(){
 		checkForCompletion(); //checking for completion
@@ -65,9 +65,9 @@ public class Grid extends GameNode{
 			if(gameBoard[row][col + index] != 0){ //into another block
 				return;
 			}
-			
+
 		} //if it made it this far then move the block to index
-			currentPiece.anchor.x+=index;
+		currentPiece.anchor.x+=index;
 
 	}
 
@@ -121,10 +121,10 @@ public class Grid extends GameNode{
 				}
 			}
 		}
-		
+
 
 	}
-	
+
 	void summonPiece(){
 		//spawning in new piece
 		currentPiece = makePiece();
@@ -162,7 +162,7 @@ public class Grid extends GameNode{
 
 	//Translating piece to gameBoard array
 	void updateBoard(){
-		
+
 		for(int mapCount = 0; mapCount < currentPiece.map.length; mapCount++){
 
 			//finding locaiton of piece
