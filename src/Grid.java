@@ -165,7 +165,7 @@ public class Grid extends GameNode{
 			randPieceType = GamePieceType.T;
 			break;
 		}
-		return new GamePiece(GamePieceType.LINE,new Point(spawnPoint));
+		return new GamePiece(randPieceType,new Point(spawnPoint));
 
 	}
 
