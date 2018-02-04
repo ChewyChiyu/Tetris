@@ -46,8 +46,7 @@ public class GameWindow extends JPanel{
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				gameBoard.cleanPrev();
-				gameBoard.currentPiece.rotate();
+				gameBoard.rotate();
 			}
 
 		});

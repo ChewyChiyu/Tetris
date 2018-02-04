@@ -22,6 +22,30 @@ public class Grid extends GameNode{
 	}
 
 
+	//check if can rotate, if can then do it
+	void rotate(){		
+		//Mock rotation for bounds test
+		
+		for(int mapCount = 0; mapCount < currentPiece.map.length; mapCount++){
+			Point test = new Point(-currentPiece.map[mapCount].y,currentPiece.map[mapCount].x);
+			int rowTest =  currentPiece.anchor.y  + ( test.y );
+			int colTest =  currentPiece.anchor.x  + ( test.x );
+			if(colTest < 0 || colTest > gameBoard[0].length || rowTest > gameBoard.length){ //testing bounds x and y
+				System.out.println("rotation failed bounds");
+				return;
+			}
+			if(gameBoard[rowTest][colTest] != 0 && currentPiece.isSelf(test)){ //meaning there is a block in the way
+				System.out.println("rotation failed block");
+				return;
+			}
+		}		
+		System.out.println("rotation success");
+		
+		//if reaches this far . . . rotation is a go
+		cleanPrev(); //clear previous first
+		currentPiece.rotate();	
+	}
+	
 	//basic game logic, shifting the pieces down by one 
 	void shiftDown(){
 		checkForCompletion(); //checking for completion

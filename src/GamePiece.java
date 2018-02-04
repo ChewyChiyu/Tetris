@@ -26,6 +26,7 @@ public class GamePiece{
 		return false;
 	}
 	
+	
 	void rotate(){ //rotation clockwise . . . kinda
 		for(int mapCount = 0; mapCount < map.length; mapCount++){
 			map[mapCount] = new Point(-map[mapCount].y,map[mapCount].x);
