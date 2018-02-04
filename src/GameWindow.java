@@ -40,7 +40,17 @@ public class GameWindow extends JPanel{
 		getInputMap().put(KeyStroke.getKeyStroke("A"), "A");
 		getInputMap().put(KeyStroke.getKeyStroke("S"), "S");
 		getInputMap().put(KeyStroke.getKeyStroke("released S"), "rS");
+		getInputMap().put(KeyStroke.getKeyStroke("W"), "W");
+		
+		getActionMap().put("W", new AbstractAction(){
 
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				gameBoard.cleanPrev();
+				gameBoard.currentPiece.rotate();
+			}
+
+		});
 		getActionMap().put("A", new AbstractAction(){
 
 			@Override

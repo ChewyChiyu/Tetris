@@ -3,10 +3,7 @@ import java.awt.Point;
 public class GamePiece{
 
 	GamePieceType type;
-	Point anchor;
-	int rotationIndex = 0;
-	boolean isCurre = false;
-	
+	Point anchor;	
 	
 	//map of piece
 	Point[] map;
@@ -28,5 +25,13 @@ public class GamePiece{
 		}
 		return false;
 	}
+	
+	void rotate(){ //rotation clockwise . . . kinda
+		for(int mapCount = 0; mapCount < map.length; mapCount++){
+			map[mapCount] = new Point(-map[mapCount].y,map[mapCount].x);
+		}
+	}
+	
+	
 	
 }
