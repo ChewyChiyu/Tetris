@@ -83,10 +83,10 @@ public class GameWindow extends JPanel{
 		//shifting down gameBoard
 		if(worldTick++ == 5){ // every half sec auto shift down
 		gameBoard.shiftDown();
+		gameBoard.checkForRow();
 		worldTick = 0;
 		}
 		gameBoard.updateBoard(); //updating pos of piece to array
-		gameBoard.checkForCompletion(); //checking to see if currentPiece has completed
 		repaint();
 	}
 	

@@ -35,9 +35,14 @@ public class Grid extends GameNode{
 		boolean canShiftRight = true;
 		for(int mapCount = 0; mapCount < currentPiece.map.length; mapCount++){
 			int col =  currentPiece.anchor.x  + ( currentPiece.map[mapCount].x );
-			if(col + index < 0 || col + index > gameBoard[0].length-1){
+			int row =  currentPiece.anchor.y  + ( currentPiece.map[mapCount].y );
+			if(col + index < 0 || col + index > gameBoard[0].length-1){ //out of bounds
 				canShiftRight = false;
 			}
+			if(gameBoard[row][col + index] != 0){ //into another block
+				canShiftRight = false;
+			}
+			
 		}
 		if(canShiftRight){
 			currentPiece.anchor.x+=index;
@@ -66,6 +71,27 @@ public class Grid extends GameNode{
 
 	}
 
+	//check if there is a row made 
+	void checkForRow(){ //if the row is all != 0 then there is a row
+		boolean[] completedRows = new boolean[gameBoard.length];
+		for(int row = 0; row < gameBoard.length; row++){
+			completedRows[row] = true;
+			for(int col = 0; col < gameBoard[0].length; col++){
+				if(gameBoard[row][col] == 0) {  completedRows[row]  = false; } // no row completed	
+			}
+		}
+		//removing rows completed
+		for(int row = 0; row < gameBoard.length; row++){
+			if(completedRows[row]){
+				for(int col = 0; col < gameBoard[0].length; col++){
+					gameBoard[row][col] = 0;
+				}
+			}
+		}
+		
+
+	}
+	
 	void summonPiece(){
 		//spawning in new piece
 		currentPiece = makePiece();
